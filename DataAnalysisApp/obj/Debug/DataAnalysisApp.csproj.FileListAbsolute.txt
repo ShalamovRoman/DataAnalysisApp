@@ -1,0 +1,2 @@
+c:\users\roman shalamov\documents\visual studio 2015\Projects\DataAnalysisApp\DataAnalysisApp\bin\Debug\DataAnalysisApp.exe.config
+C:\DataAnalysisApp\DataAnalysisApp\bin\Debug\DataAnalysisApp.exe.config
