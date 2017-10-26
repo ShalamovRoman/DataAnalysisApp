@@ -164,6 +164,22 @@ namespace DataAnalysisApp
 
                             break;
 
+                        case "checkBox1":
+
+                            engine.Evaluate("data <- as.data.frame(data)");
+                            wordrange = WordDoc.Bookmarks["Т_Тест"].Range;
+                            wordrange.InsertAfter("Рассмотрим различия по кол-ву лет обучения, зарплате и тем, была ли установлена зарплата путем коллективных переговоров.\r");
+                            double TTestPValue = engine.Evaluate("t.test(data[,3] ~ data$union)$p.value").AsNumeric()[0];
+                            double TTestTValue = engine.Evaluate("t.test(data[,3] ~ data$union)$statistic").AsNumeric()[0];
+                            if (TTestPValue <= 0.05) wordrange.InsertAfter("Согласно критерию Стьюлента выявлены статистически значимые различия между Schooling и Union (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+                            else wordrange.InsertAfter("Согласно критерию Стьюлента не выявлены статистически значимые различия между Schooling и Union (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+                            TTestPValue = engine.Evaluate("t.test(data[,9] ~ data$union)$p.value").AsNumeric()[0];
+                            TTestTValue = engine.Evaluate("t.test(data[,9] ~ data$union)$statistic").AsNumeric()[0];
+                            if (TTestPValue <= 0.05) wordrange.InsertAfter("Согласно критерию Стьюлента выявлены статистически значимые различия между Wage и Union (p.value =  " + Math.Round(TTestPValue, 15) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+                            else wordrange.InsertAfter("Согласно критерию Стьюлента не выявлены статистически значимые различия между Wage и Union (p.value =  " + Math.Round(TTestPValue, 15) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+                                  
+                            break;
+
                         default:
                             break;
                     }
