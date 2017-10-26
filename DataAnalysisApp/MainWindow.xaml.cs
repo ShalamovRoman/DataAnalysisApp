@@ -24,5 +24,10 @@ namespace DataAnalysisApp
         {
             InitializeComponent();
         }
+
+        private void textBox_enabled(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
