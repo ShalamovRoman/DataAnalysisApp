@@ -1,15 +1,1 @@
 c:\users\roman shalamov\documents\visual studio 2015\Projects\DataAnalysisApp\DataAnalysisApp\bin\Debug\DataAnalysisApp.exe.config
-C:\DataAnalysisApp\DataAnalysisApp\bin\Debug\DataAnalysisApp.exe.config
-C:\DataAnalysisApp\DataAnalysisApp\bin\Debug\DataAnalysisApp.exe
-C:\DataAnalysisApp\DataAnalysisApp\bin\Debug\DataAnalysisApp.pdb
-C:\DataAnalysisApp\DataAnalysisApp\obj\Debug\DataAnalysisApp.csprojResolveAssemblyReference.cache
-C:\DataAnalysisApp\DataAnalysisApp\obj\Debug\MainWindow.g.cs
-C:\DataAnalysisApp\DataAnalysisApp\obj\Debug\App.g.cs
-C:\DataAnalysisApp\DataAnalysisApp\obj\Debug\DataAnalysisApp_MarkupCompile.cache
-C:\DataAnalysisApp\DataAnalysisApp\obj\Debug\DataAnalysisApp_MarkupCompile.lref
-C:\DataAnalysisApp\DataAnalysisApp\obj\Debug\MainWindow.baml
-C:\DataAnalysisApp\DataAnalysisApp\obj\Debug\DataAnalysisApp.g.resources
-C:\DataAnalysisApp\DataAnalysisApp\obj\Debug\DataAnalysisApp.Properties.Resources.resources
-C:\DataAnalysisApp\DataAnalysisApp\obj\Debug\DataAnalysisApp.csproj.GenerateResource.Cache
-C:\DataAnalysisApp\DataAnalysisApp\obj\Debug\DataAnalysisApp.exe
-C:\DataAnalysisApp\DataAnalysisApp\obj\Debug\DataAnalysisApp.pdb
