@@ -55,7 +55,7 @@ namespace DataAnalysisApp
             wordrange.Text = textBox1.Text;
             wordrange = WordDoc.Bookmarks["Дата"].Range;
             wordrange.Text = dateTimePicker1.SelectedDate.ToString();
-            CheckBox[] CheckboxArr = new CheckBox[6] { checkBox, checkBox1, checkBox22, checkBox3, checkBox4, checkBox5, };
+            CheckBox[] CheckboxArr = new CheckBox[6] { checkBox, checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, };
             Word.Range wordcellrange;
             CharacterVector CountOfRows = engine.Evaluate("nrow(data)").AsCharacter();
 
@@ -235,17 +235,31 @@ namespace DataAnalysisApp
                             else wordrange.InsertAfter("Согласно критерию Стьюлента не выявлены статистически значимые различия между 'Прогулы' и 'Место проживания' (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
                             break;
 
-                        case "checkbox22":
+                        case "checkBox2":
 
                             wordrange = WordDoc.Bookmarks["Анова"].Range;
                             wordrange.InsertParagraphAfter();
-                            wordrange.InsertAfter("С помощью теста ANOVA были изучены различия для групп по расе (black - темнокожие, hisp - латиноамериканцы, other - остальные) для года рождения, опыта и зарплаты.\r");
-                            wordrange.InsertAfter("Year: p value = " + Math.Round(engine.Evaluate("aov(data$ethn ~ data$year)[[1]][[2]]").AsNumeric()[0], 5) + "; F = " +
-                                Math.Round(engine.Evaluate("aov(data$ethn ~ data$year)[[1]][[1]]").AsNumeric()[0], 5));
-                            wordrange.InsertAfter("Year: p value = " + Math.Round(engine.Evaluate("aov(data$ethn ~ data$exper)[[1]][[2]]").AsNumeric()[0], 5) + "; F = " +
-                                Math.Round(engine.Evaluate("aov(data$ethn ~ data$exper)[[1]][[1]]").AsNumeric()[0], 5));
-                            wordrange.InsertAfter("Year: p value = " + Math.Round(engine.Evaluate("aov(data$ethn ~ data$wage)[[1]][[2]]").AsNumeric()[0], 5) + "; F = " +
-                                Math.Round(engine.Evaluate("aov(data$ethn ~ data$wage)[[1]][[1]]").AsNumeric()[0], 5));
+                            wordrange.InsertAfter("С помощью теста ANOVA были изучены различия по количеству прогулов для переменных: 'Работа матери', 'Опекун студента', 'Количество употребляемого алкгоголя в будние дни'.\r");
+
+                            wordrange.InsertAfter(" Работа матери (5 групп) : p value = " + Math.Round(engine.Evaluate("(summary(aov(absences ~ Mjob, data = data))[[1]][[5]])[1]").AsNumeric()[0], 5) + "; F value = " +
+                                Math.Round(engine.Evaluate("(summary(aov(absences ~ Mjob, data = data))[[1]][[4]])[1]").AsNumeric()[0], 5) + ". ");
+                            if (Math.Round(engine.Evaluate("(summary(aov(absences ~ Mjob, data = data))[[1]][[5]])[1]").AsNumeric()[0], 5) < 0.05)
+                                wordrange.InsertAfter("Выявлены зависимости в группах по данному параметру.");
+                            else wordrange.InsertAfter("Не выявлены различия в группах по данному параметру.");
+
+                            wordrange.InsertParagraphAfter();
+                            wordrange.InsertAfter("'Опекун студента (3 группы)': p value = " + Math.Round(engine.Evaluate("(summary(aov(absences ~ guardian, data = data))[[1]][[5]])[1]").AsNumeric()[0], 5) + "; F value = " +
+                                Math.Round(engine.Evaluate("(summary(aov(absences ~ guardian, data = data))[[1]][[4]])[1]").AsNumeric()[0], 5) + ". ");
+                            if (Math.Round(engine.Evaluate("(summary(aov(absences ~ guardian, data = data))[[1]][[5]])[1]").AsNumeric()[0], 5) < 0.05)
+                                wordrange.InsertAfter("Выявлены зависимости в группах по данному параметру.");
+                            else wordrange.InsertAfter("Не выявлены различия в группах по данному параметру.");
+
+                            wordrange.InsertParagraphAfter();
+                            wordrange.InsertAfter("'Количество употребляемого алкгоголя в будние дни (5 групп)': p value = " + Math.Round(engine.Evaluate("(summary(aov(absences ~ Dalc, data = data))[[1]][[5]])[1]").AsNumeric()[0], 5) + "; F value = " +
+                                 Math.Round(engine.Evaluate("(summary(aov(absences ~ Dalc, data = data))[[1]][[4]])[1]").AsNumeric()[0], 5) + ". ");
+                            if (Math.Round(engine.Evaluate("(summary(aov(absences ~ Dalc, data = data))[[1]][[5]])[1]").AsNumeric()[0], 5) < 0.05)
+                                wordrange.InsertAfter("Выявлены зависимости в группах по данному параметру.");
+                            else wordrange.InsertAfter("Не выявлены различия в группах по данному параметру.");
                             break;
 
                         case "checkbox3":

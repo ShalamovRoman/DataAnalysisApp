@@ -18,7 +18,7 @@
         <Label x:Name="label3" Content="Choose analysis type:" HorizontalAlignment="Left" Margin="298,15,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox" Content="Descriptive statistics" HorizontalAlignment="Left" Margin="302,46,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox1" Content="T-Test" HorizontalAlignment="Left" Margin="302,76,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox22" Content="ANOVA" HorizontalAlignment="Left" Margin="302,106,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox2" Content="ANOVA" HorizontalAlignment="Left" Margin="302,106,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox3" Content="Correlation analysis" HorizontalAlignment="Left" Margin="302,136,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox4" Content="Regression analysis" HorizontalAlignment="Left" Margin="302,166,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox5" Content="Сluster analysis" HorizontalAlignment="Left" Margin="302,196,0,0" VerticalAlignment="Top"/>
