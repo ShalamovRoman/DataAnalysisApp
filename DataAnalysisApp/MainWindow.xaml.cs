@@ -208,16 +208,31 @@ namespace DataAnalysisApp
 
                             engine.Evaluate("data <- as.data.frame(data)");
                             wordrange = WordDoc.Bookmarks["Т_Тест"].Range;
-                            wordrange.InsertAfter("Рассмотрим различия по кол-ву лет обучения, зарплате и тем, была ли установлена зарплата путем коллективных переговоров.\r");
-                            double TTestPValue = engine.Evaluate("t.test(data[,3] ~ data$union)$p.value").AsNumeric()[0];
-                            double TTestTValue = engine.Evaluate("t.test(data[,3] ~ data$union)$statistic").AsNumeric()[0];
-                            if (TTestPValue <= 0.05) wordrange.InsertAfter("Согласно критерию Стьюлента выявлены статистически значимые различия между Schooling и Union (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
-                            else wordrange.InsertAfter("Согласно критерию Стьюлента не выявлены статистически значимые различия между Schooling и Union (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
-                            TTestPValue = engine.Evaluate("t.test(data[,9] ~ data$union)$p.value").AsNumeric()[0];
-                            TTestTValue = engine.Evaluate("t.test(data[,9] ~ data$union)$statistic").AsNumeric()[0];
-                            if (TTestPValue <= 0.05) wordrange.InsertAfter("Согласно критерию Стьюлента выявлены статистически значимые различия между Wage и Union (p.value =  " + Math.Round(TTestPValue, 15) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
-                            else wordrange.InsertAfter("Согласно критерию Стьюлента не выявлены статистически значимые различия между Wage и Union (p.value =  " + Math.Round(TTestPValue, 15) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
-                                  
+                            wordrange.InsertAfter("Рассмотрим зависимость числа прогулов от того, состоит ли студент в романтических отношениях, учился в дестком саду, помогают ли ему в семье с учебой и где студент живет. \r");
+
+                            wordrange.InsertParagraphAfter();
+                            double TTestPValue = engine.Evaluate("t.test(data[,30] ~ data$romantic)$p.value").AsNumeric()[0];
+                            double TTestTValue = engine.Evaluate("t.test(data[,30] ~ data$romantic)$statistic").AsNumeric()[0];
+                            if (TTestPValue <= 0.05) wordrange.InsertAfter("Согласно критерию Стьюлента выявлены статистически значимые различия между 'Прогулы' и 'Отношения' (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+                            else wordrange.InsertAfter("Согласно критерию Стьюлента не выявлены статистически значимые различия между 'Прогулы' и 'Отношения' (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+
+                            wordrange.InsertParagraphAfter();
+                            TTestPValue = engine.Evaluate("t.test(data[,30] ~ data$nursery)$p.value").AsNumeric()[0];
+                            TTestTValue = engine.Evaluate("t.test(data[,30] ~ data$nursery)$statistic").AsNumeric()[0];
+                            if (TTestPValue <= 0.05) wordrange.InsertAfter("Согласно критерию Стьюлента выявлены статистически значимые различия между 'Прогулы' и 'Детский сад' (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+                            else wordrange.InsertAfter("Согласно критерию Стьюлента не выявлены статистически значимые различия между 'Прогулы' и 'Детский сад' (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+
+                            wordrange.InsertParagraphAfter();
+                            TTestPValue = engine.Evaluate("t.test(data[,30] ~ data$famsup)$p.value").AsNumeric()[0];
+                            TTestTValue = engine.Evaluate("t.test(data[,30] ~ data$famsup)$statistic").AsNumeric()[0];
+                            if (TTestPValue <= 0.05) wordrange.InsertAfter("Согласно критерию Стьюлента выявлены статистически значимые различия между 'Прогулы' и 'Помощь с учебой в семье' (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+                            else wordrange.InsertAfter("Согласно критерию Стьюлента не выявлены статистически значимые различия между 'Прогулы' и 'Помощь с учебой в семье' (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+
+                            wordrange.InsertParagraphAfter();
+                            TTestPValue = engine.Evaluate("t.test(data[,30] ~ data$address)$p.value").AsNumeric()[0];
+                            TTestTValue = engine.Evaluate("t.test(data[,30] ~ data$address)$statistic").AsNumeric()[0];
+                            if (TTestPValue <= 0.05) wordrange.InsertAfter("Согласно критерию Стьюлента выявлены статистически значимые различия между 'Прогулы' и 'Место проживания' (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+                            else wordrange.InsertAfter("Согласно критерию Стьюлента не выявлены статистически значимые различия между 'Прогулы' и 'Место проживания' (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
                             break;
 
                         case "checkbox22":
