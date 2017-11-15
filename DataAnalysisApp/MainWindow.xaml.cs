@@ -202,6 +202,9 @@ namespace DataAnalysisApp
                             }
 
                             wordrange.InsertAfter("По показателю 'Причина выбора данной школы' выборка распределена следующим образом: 'Репутация' -- " + ReasonProcent[3].ToString() + "%; 'Интерес к курсу' -- " + ReasonProcent[0].ToString() + "%; 'Близость к дому' -- " + ReasonProcent[1].ToString() + "%; 'Другое' -- " + ReasonProcent[2].ToString() + "%.");
+
+                            WordDoc.Words.Last.InsertBreak(Word.WdBreakType.wdPageBreak);
+
                             break;
 
                         case "checkBox1":
@@ -233,6 +236,10 @@ namespace DataAnalysisApp
                             TTestTValue = engine.Evaluate("t.test(data[,30] ~ data$address)$statistic").AsNumeric()[0];
                             if (TTestPValue <= 0.05) wordrange.InsertAfter("Согласно критерию Стьюлента выявлены статистически значимые различия между 'Прогулы' и 'Место проживания' (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
                             else wordrange.InsertAfter("Согласно критерию Стьюлента не выявлены статистически значимые различия между 'Прогулы' и 'Место проживания' (p.value =  " + Math.Round(TTestPValue, 5) + ", t = " + Math.Round(TTestTValue, 5) + ")\r");
+
+                            wordrange = WordDoc.Bookmarks["Разрыв"].Range;
+                            wordrange.InsertBreak(Word.WdBreakType.wdPageBreak);
+
                             break;
 
                         case "checkBox2":
@@ -262,8 +269,60 @@ namespace DataAnalysisApp
                             else wordrange.InsertAfter("Не выявлены различия в группах по данному параметру.");
                             break;
 
-                        case "checkbox3":
+                        case "checkBox3":
 
+                            wordrange = WordDoc.Bookmarks["Манна_Уитни"].Range;
+                            wordrange.InsertParagraphAfter();
+                            
+                            wordrange.InsertAfter("Переменная "+ engine.Evaluate("colnames(data)[27]").AsCharacter()[0] + " принимает всего " + engine.Evaluate("length(levels(factor(data$Dalc)))").AsCharacter()[0] + " значений, поэтому для выявления различий по " + engine.Evaluate("colnames(data)[27]").AsCharacter()[0] + " по показателю " + engine.Evaluate("colnames(data)[2]").AsCharacter()[0] + " используем критерий Манна-Уитни.");
+                            string ResFlag = "";
+                            if (engine.Evaluate("wilcox.test(Dalc~sex, data = data)[3]").AsNumeric()[0] > 0.05) ResFlag = "не ";
+                            wordrange.InsertAfter(" Согласно этому критерию " + ResFlag + "выявлены статистически значимые различия между " + engine.Evaluate("levels(data$sex)").AsCharacter()[0] + " и " + engine.Evaluate("levels(data$sex)").AsCharacter()[1] + "");
+                            wordrange.InsertAfter(" (p = " + engine.Evaluate("wilcox.test(Dalc~sex, data = data)").AsCharacter()[2] + ", W = " + engine.Evaluate("wilcox.test(Dalc~sex, data = data)").AsCharacter()[0] + ").");
+
+                            wordrange.InsertParagraphAfter();
+
+                            wordrange.InsertAfter("Переменная " + engine.Evaluate("colnames(data)[25]").AsCharacter()[0] + " принимает всего " + engine.Evaluate("length(levels(factor(data$freetime)))").AsCharacter()[0] + " значений, поэтому для выявления различий по " + engine.Evaluate("colnames(data)[25]").AsCharacter()[0] + " по показателю " + engine.Evaluate("colnames(data)[22]").AsCharacter()[0] + " используем критерий Манна-Уитни.");
+                            ResFlag = "";
+                            if (engine.Evaluate("wilcox.test(freetime~internet, data = data)[3]").AsNumeric()[0] > 0.05) ResFlag = "не ";
+                            wordrange.InsertAfter(" Согласно этому критерию " + ResFlag + "выявлены статистически значимые различия между " + engine.Evaluate("levels(data$internet)").AsCharacter()[0] + " и " + engine.Evaluate("levels(data$internet)").AsCharacter()[1] + "");
+                            wordrange.InsertAfter(" (p = " + engine.Evaluate("wilcox.test(freetime~internet, data = data)").AsCharacter()[2] + ", W = " + engine.Evaluate("wilcox.test(freetime~internet, data = data)").AsCharacter()[0] + ").");
+
+                            wordrange.InsertParagraphAfter();
+                            wordrange.InsertAfter("Переменная " + engine.Evaluate("colnames(data)[27]").AsCharacter()[0] + " принимает всего " + engine.Evaluate("length(levels(factor(data$Dalc)))").AsCharacter()[0] + " значений, поэтому для выявления различий по " + engine.Evaluate("colnames(data)[27]").AsCharacter()[0] + " по показателю " + engine.Evaluate("colnames(data)[23]").AsCharacter()[0] + " используем критерий Манна-Уитни.");
+                            ResFlag = "";
+                            if (engine.Evaluate("wilcox.test(Dalc~romantic, data = data)[3]").AsNumeric()[0] > 0.05) ResFlag = "не ";
+                            wordrange.InsertAfter(" Согласно этому критерию " + ResFlag + "выявлены статистически значимые различия между " + engine.Evaluate("levels(data$romantic)").AsCharacter()[0] + " и " + engine.Evaluate("levels(data$romantic)").AsCharacter()[1] + "");
+                            wordrange.InsertAfter(" (p = " + engine.Evaluate("wilcox.test(Dalc~romantic, data = data)").AsCharacter()[2] + ", W = " + engine.Evaluate("wilcox.test(Dalc~romantic, data = data)").AsCharacter()[0] + ").");
+
+                            wordrange.InsertParagraphAfter();
+
+                            wordrange.InsertAfter("Переменная " + engine.Evaluate("colnames(data)[26]").AsCharacter()[0] + " принимает всего " + engine.Evaluate("length(levels(factor(data$goout)))").AsCharacter()[0] + " значений, поэтому для выявления различий по " + engine.Evaluate("colnames(data)[26]").AsCharacter()[0] + " по показателю " + engine.Evaluate("colnames(data)[22]").AsCharacter()[0] + " используем критерий Манна-Уитни.");
+                            ResFlag = "";
+                            if (engine.Evaluate("wilcox.test(goout~internet, data = data)[3]").AsNumeric()[0] > 0.05) ResFlag = "не ";
+                            wordrange.InsertAfter(" Согласно этому критерию " + ResFlag + "выявлены статистически значимые различия между " + engine.Evaluate("levels(data$internet)").AsCharacter()[0] + " и " + engine.Evaluate("levels(data$internet)").AsCharacter()[1] + "");
+                            wordrange.InsertAfter(" (p = " + engine.Evaluate("wilcox.test(goout~internet, data = data)").AsCharacter()[2] + ", W = " + engine.Evaluate("wilcox.test(goout~internet, data = data)").AsCharacter()[0] + ").");
+
+
+                            wordrange.InsertParagraphAfter();
+
+                            wordrange.InsertAfter("Переменная " + engine.Evaluate("colnames(data)[15]").AsCharacter()[0] + " принимает всего " + engine.Evaluate("length(levels(factor(data$failures)))").AsCharacter()[0] + " значений, поэтому для выявления различий по " + engine.Evaluate("colnames(data)[15]").AsCharacter()[0] + " по показателю " + engine.Evaluate("colnames(data)[21]").AsCharacter()[0] + " используем критерий Манна-Уитни.");
+                            ResFlag = "";
+                            if (engine.Evaluate("wilcox.test(failures~higher, data = data)[3]").AsNumeric()[0] > 0.05) ResFlag = "не ";
+                            wordrange.InsertAfter(" Согласно этому критерию " + ResFlag + "выявлены статистически значимые различия между " + engine.Evaluate("levels(data$higher)").AsCharacter()[0] + " и " + engine.Evaluate("levels(data$higher)").AsCharacter()[1] + "");
+                            wordrange.InsertAfter(" (p = " + engine.Evaluate("wilcox.test(failures~higher, data = data)").AsCharacter()[2] + ", W = " + engine.Evaluate("wilcox.test(failures~higher, data = data)").AsCharacter()[0] + ").");
+
+                            wordrange.InsertParagraphAfter();
+
+                            wordrange.InsertAfter("Переменная " + engine.Evaluate("colnames(data)[13]").AsCharacter()[0] + " принимает всего " + engine.Evaluate("length(levels(factor(data$traveltime)))").AsCharacter()[0] + " значений, поэтому для выявления различий по " + engine.Evaluate("colnames(data)[13]").AsCharacter()[0] + " по показателю " + engine.Evaluate("colnames(data)[4]").AsCharacter()[0] + " используем критерий Манна-Уитни.");
+                            ResFlag = "";
+                            if (engine.Evaluate("wilcox.test(traveltime~address, data = data)[3]").AsNumeric()[0] > 0.05) ResFlag = "не ";
+                            wordrange.InsertAfter(" Согласно этому критерию " + ResFlag + "выявлены статистически значимые различия между " + engine.Evaluate("levels(data$address)").AsCharacter()[0] + " и " + engine.Evaluate("levels(data$address)").AsCharacter()[1] + "");
+                            wordrange.InsertAfter(" (p = " + engine.Evaluate("wilcox.test(traveltime~address, data = data)").AsCharacter()[2] + ", W = " + engine.Evaluate("wilcox.test(traveltime~address, data = data)").AsCharacter()[0] + ").");
+
+                            break;
+                        
+                        default:
                             //engine.Evaluate("cor(data[,c(2, 3, 4, 9)])");
                             //engine.Evaluate("rc <- rcorr(as.matrix(data[,c(2, 3, 4, 9)]))");
                             //NumericMatrix CorrelationMatrix = engine.Evaluate("rc").AsNumericMatrix();
@@ -302,10 +361,6 @@ namespace DataAnalysisApp
                             //        wordTable.Cell(i + 2, j + 2).Range.Text = Math.Round(CorrelationMatrix[i, j], 5).ToString();
                             //    }
                             //}
-
-                            break;
-                        
-                        default:
                             break;
                     }
                 }
