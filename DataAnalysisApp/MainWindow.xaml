@@ -20,7 +20,7 @@
         <CheckBox x:Name="checkBox1" Content="T-Test" HorizontalAlignment="Left" Margin="302,76,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox2" Content="ANOVA" HorizontalAlignment="Left" Margin="302,106,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox3" Content="Mann-Whitney U-test" HorizontalAlignment="Left" Margin="302,136,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox4" Content="Regression analysis" HorizontalAlignment="Left" Margin="302,166,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox4" Content="Chi-Squared Test" HorizontalAlignment="Left" Margin="302,166,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox5" Content="Сluster analysis" HorizontalAlignment="Left" Margin="302,196,0,0" VerticalAlignment="Top"/>
         <Button x:Name="button" Content="Create report" HorizontalAlignment="Left" Margin="200,259,0,0" VerticalAlignment="Top" Width="127" Height="38" Click="button_Click"/>
         <CheckBox x:Name="checkBox6" Content="Create Excel tables" HorizontalAlignment="Left" Margin="26,221,0,0" VerticalAlignment="Top"  ToolTip="Only for Correlation and Regression analyzes"/>

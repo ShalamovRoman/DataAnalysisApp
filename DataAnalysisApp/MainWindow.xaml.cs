@@ -59,6 +59,10 @@ namespace DataAnalysisApp
             Word.Range wordcellrange;
             CharacterVector CountOfRows = engine.Evaluate("nrow(data)").AsCharacter();
 
+            wordrange = WordDoc.Bookmarks["Опис_Данные"].Range;
+            wordrange.InsertAfter("Анализировались данные о студентах, обучающихся в старших классах двух школ на математическом курсе. \r");
+            wordrange.InsertAfter("Данные содержат 395 записей и 33 переменных.");
+
             foreach (CheckBox CurrentCheckbox in CheckboxArr)
             {
                 if (CurrentCheckbox.IsChecked == true)
@@ -66,6 +70,9 @@ namespace DataAnalysisApp
                     switch (CurrentCheckbox.Name)
                     {
                         case "checkBox":
+
+                            wordrange = WordDoc.Bookmarks["Опис"].Range;
+                            wordrange.InsertAfter("Характеристики метрических переменных исследуемого набора данных представлены в таблице:");
 
                             wordrange = WordDoc.Bookmarks["Опис_Таблица"].Range;
                             Word.Table wordTable = WordDoc.Tables.Add(wordrange, 4, 5);
@@ -203,7 +210,8 @@ namespace DataAnalysisApp
 
                             wordrange.InsertAfter("По показателю 'Причина выбора данной школы' выборка распределена следующим образом: 'Репутация' -- " + ReasonProcent[3].ToString() + "%; 'Интерес к курсу' -- " + ReasonProcent[0].ToString() + "%; 'Близость к дому' -- " + ReasonProcent[1].ToString() + "%; 'Другое' -- " + ReasonProcent[2].ToString() + "%.");
 
-                            WordDoc.Words.Last.InsertBreak(Word.WdBreakType.wdPageBreak);
+                            wordrange = WordDoc.Bookmarks["Разрыв0"].Range;
+                            wordrange.InsertBreak(Word.WdBreakType.wdPageBreak);
 
                             break;
 
@@ -321,7 +329,45 @@ namespace DataAnalysisApp
                             wordrange.InsertAfter(" (p = " + engine.Evaluate("wilcox.test(traveltime~address, data = data)").AsCharacter()[2] + ", W = " + engine.Evaluate("wilcox.test(traveltime~address, data = data)").AsCharacter()[0] + ").");
 
                             break;
-                        
+
+                        case "checkBox4":
+
+                            wordrange = WordDoc.Bookmarks["Хи_Квадрат"].Range;
+                            wordrange.InsertParagraphAfter();
+                            string AnsFlag = "";
+                            wordrange.InsertAfter("Для выявления взаимосвязей между номинальными переменными используется критерий хи-квадрат.\r");
+
+                            double PValue = engine.Evaluate("chisq.test(data$Dalc, data$famrel)[3]").AsNumeric()[0];
+                            double HiValue = engine.Evaluate("chisq.test(data$Dalc, data$famrel)[1]").AsNumeric()[0];
+                            if (PValue > 0.05) AnsFlag = "отсутствие";
+                            else AnsFlag = "наличие";
+                            wordrange.InsertAfter("Так, в рассматриваемых данных показано " + AnsFlag + " статистически значимой взаимосвязи между " + engine.Evaluate("colnames(data)[27]").AsCharacter()[0] + " и " + engine.Evaluate("colnames(data)[24]").AsCharacter()[0] + " (p = " + PValue.ToString() + ", X = " + HiValue.ToString() + ").\r");
+
+                            PValue = engine.Evaluate("chisq.test(data$Dalc, data$studytime)[3]").AsNumeric()[0];
+                            HiValue = engine.Evaluate("chisq.test(data$Dalc, data$studytime)[1]").AsNumeric()[0];
+                            if (PValue > 0.05) AnsFlag = "отсутствие";
+                            else AnsFlag = "наличие";
+                            wordrange.InsertAfter("Так, в рассматриваемых данных показано " + AnsFlag + " статистически значимой взаимосвязи между " + engine.Evaluate("colnames(data)[27]").AsCharacter()[0] + " и " + engine.Evaluate("colnames(data)[13]").AsCharacter()[0] + " (p = " + PValue.ToString() + ", X = " + HiValue.ToString() + ").\r");
+
+                            PValue = engine.Evaluate("chisq.test(data$Dalc, data$Walc)[3]").AsNumeric()[0];
+                            HiValue = engine.Evaluate("chisq.test(data$Dalc, data$Walc)[1]").AsNumeric()[0];
+                            if (PValue > 0.05) AnsFlag = "отсутствие";
+                            else AnsFlag = "наличие";
+                            wordrange.InsertAfter("Так, в рассматриваемых данных показано " + AnsFlag + " статистически значимой взаимосвязи между " + engine.Evaluate("colnames(data)[27]").AsCharacter()[0] + " и " + engine.Evaluate("colnames(data)[28]").AsCharacter()[0] + " (p = " + PValue.ToString() + ", X = " + HiValue.ToString() + ").\r");
+
+                            PValue = engine.Evaluate("chisq.test(data$Dalc, data$health)[3]").AsNumeric()[0];
+                            HiValue = engine.Evaluate("chisq.test(data$Dalc, data$health)[1]").AsNumeric()[0];
+                            if (PValue > 0.05) AnsFlag = "отсутствие";
+                            else AnsFlag = "наличие";
+                            wordrange.InsertAfter("Так, в рассматриваемых данных показано " + AnsFlag + " статистически значимой взаимосвязи между " + engine.Evaluate("colnames(data)[27]").AsCharacter()[0] + " и " + engine.Evaluate("colnames(data)[29]").AsCharacter()[0] + " (p = " + PValue.ToString() + ", X = " + HiValue.ToString() + ").\r");
+
+                            PValue = engine.Evaluate("chisq.test(data$Dalc, data$age)[3]").AsNumeric()[0];
+                            HiValue = engine.Evaluate("chisq.test(data$Dalc, data$age)[1]").AsNumeric()[0];
+                            if (PValue > 0.05) AnsFlag = "отсутствие";
+                            else AnsFlag = "наличие";
+                            wordrange.InsertAfter("Так, в рассматриваемых данных показано " + AnsFlag + " статистически значимой взаимосвязи между " + engine.Evaluate("colnames(data)[27]").AsCharacter()[0] + " и " + engine.Evaluate("colnames(data)[3]").AsCharacter()[0] + " (p = " + PValue.ToString() + ", X = " + HiValue.ToString() + ").\r");
+
+                            break;
                         default:
                             //engine.Evaluate("cor(data[,c(2, 3, 4, 9)])");
                             //engine.Evaluate("rc <- rcorr(as.matrix(data[,c(2, 3, 4, 9)]))");
