@@ -38,7 +38,7 @@ namespace DataAnalysisApp
             REngine engine = REngine.GetInstance();
             engine.Initialize();
             //engine.Evaluate("library(foreign)");
-            //engine.Evaluate("library(Hmisc)");
+            engine.Evaluate("library(Hmisc)");
             engine.Evaluate("require(qgraph)");
             engine.Evaluate("data <- read.table('student-mat.csv',sep=',',header=TRUE)");
 
@@ -368,45 +368,40 @@ namespace DataAnalysisApp
                             wordrange.InsertAfter("Так, в рассматриваемых данных показано " + AnsFlag + " статистически значимой взаимосвязи между " + engine.Evaluate("colnames(data)[27]").AsCharacter()[0] + " и " + engine.Evaluate("colnames(data)[3]").AsCharacter()[0] + " (p = " + PValue.ToString() + ", X = " + HiValue.ToString() + ").\r");
 
                             break;
+
+                        case "checkBox5":
+
+                            wordrange = WordDoc.Bookmarks["Корр_Анализ"].Range;
+                            wordrange.InsertAfter("Корреляционный анализ позволяет определить взаимосвязь между метрическими переменными. Значения коэффициентов корреляции представлены в таблице, статистически значимые взаимосвязи выделены полужирным шрифтом.\r");
+
+                            engine.Evaluate("rc <- rcorr(as.matrix(data[,c(3, 30)]))");
+ 
+                            wordrange = WordDoc.Bookmarks["Корр_Таблица"].Range;
+                            Word.Table wordTable1 = WordDoc.Tables.Add(wordrange, 3, 3);
+
+                            wordTable1.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
+                            wordTable1.Borders.InsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
+
+                            wordTable1.Cell(1, 2).Range.Text = "age";
+                            wordTable1.Cell(2, 1).Range.Text = "age";
+                            wordTable1.Cell(1, 3).Range.Text = "absences";
+                            wordTable1.Cell(3, 1).Range.Text = "absences";
+                            wordTable1.Cell(3, 2).Range.Text = Math.Round(engine.Evaluate("rc$P[2][1]").AsNumeric()[0] ,5).ToString();
+                            wordTable1.Cell(2, 3).Range.Text = Math.Round(engine.Evaluate("rc$P[2][1]").AsNumeric()[0], 5).ToString();
+                            wordTable1.Cell(3, 3).Range.Text = "NULL";
+                            wordTable1.Cell(2, 2).Range.Text = "NULL";
+
+                            for (int i = 1; i < 4; i++)
+                                for (int j = 1; j < 4; j++)
+                                {
+                                    wordcellrange = wordTable1.Cell(i, j).Range;
+                                    wordcellrange.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                                }
+
+                            wordTable1.Cell(2, 3).Range.Bold = 1;
+                            wordTable1.Cell(3, 2).Range.Bold = 1;
+                            break;
                         default:
-                            //engine.Evaluate("cor(data[,c(2, 3, 4, 9)])");
-                            //engine.Evaluate("rc <- rcorr(as.matrix(data[,c(2, 3, 4, 9)]))");
-                            //NumericMatrix CorrelationMatrix = engine.Evaluate("rc").AsNumericMatrix();
-
-                            //wordrange = WordDoc.Bookmarks["aaf"].Range;
-                            //wordrange.InsertAfter("Year");
-
-                            //wordrange = WordDoc.Bookmarks["Корр_Таблица_13"].Range;
-                            //wordrange.InsertAfter("School");
-
-                            //wordrange = WordDoc.Bookmarks["Корр_Таблица_14"].Range;
-                            //wordrange.InsertAfter("Exper");
-
-                            //wordrange = WordDoc.Bookmarks["Корр_Таблица_15"].Range;
-                            //wordrange.InsertAfter("Wage");
-
-                            //wordrange = WordDoc.Bookmarks["Корр_Таблица_21"].Range;
-                            //wordrange.InsertAfter("Year");
-
-                            //wordrange = WordDoc.Bookmarks["Корр_Таблица_22"].Range;
-                            //wordrange.InsertAfter(CorrelationMatrix[2, 2].ToString());
-
-                            //wordrange = WordDoc.Bookmarks["Корр_Таблица_23"].Range;
-                            //wordrange.InsertAfter(CorrelationMatrix[2, 3].ToString());
-
-                            //wordrange = WordDoc.Bookmarks["Корр_Таблица_24"].Range;
-                            //wordrange.InsertAfter(CorrelationMatrix[2, 4].ToString());
-                            //for (int i = 0; i <= 3; i++)
-                            //{
-                            //    for (int j = 0; j <= 3; j++)
-                            //    {
-                            //        if (CorrelationMatrix[i, j] <= 0.05)
-                            //        {
-                            //            WordDoc.Tables[1].Cell(i + 2, j + 2).Range.Bold = 1;
-                            //        }
-                            //        wordTable.Cell(i + 2, j + 2).Range.Text = Math.Round(CorrelationMatrix[i, j], 5).ToString();
-                            //    }
-                            //}
                             break;
                     }
                 }
