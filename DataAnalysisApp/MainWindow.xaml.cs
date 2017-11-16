@@ -58,6 +58,16 @@ namespace DataAnalysisApp
             Word.Range wordcellrange;
             CharacterVector CountOfRows = engine.Evaluate("nrow(data)").AsCharacter();
 
+            if (checkBox6.IsChecked == true)
+            {
+                string ExcelReportPath = @"C:\DataAnalysisApp\reportExcel.xlsx";
+                ExcelApp = new Excel.Application();
+                ExcelApp.Visible = true;
+                ExcelBook = ExcelApp.Workbooks.Add(ExcelReportPath);
+                ExcelBook.Worksheets.Add();
+                ExcelBook.Worksheets.Add();
+                ExcelBook.Worksheets.Add();
+            }
             if (checkBox8.IsChecked == false)
             {
 
@@ -78,8 +88,6 @@ namespace DataAnalysisApp
 
                                 wordrange = WordDoc.Bookmarks["Опис_Таблица"].Range;
                                 Word.Table wordTable = WordDoc.Tables.Add(wordrange, 4, 5);
-
-                                wordTable = WordDoc.Tables[1];
 
                                 WordDoc.Tables[1].Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
                                 WordDoc.Tables[1].Borders.InsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
@@ -215,6 +223,18 @@ namespace DataAnalysisApp
                                 wordrange = WordDoc.Bookmarks["Разрыв0"].Range;
                                 wordrange.InsertBreak(Word.WdBreakType.wdPageBreak);
 
+                                if (checkBox6.IsChecked == true)
+                                {
+
+                                    ExcelBook.Worksheets[1].Name = "Descriptive statistics";
+                                    for (int i = 1; i < 5; i++)
+                                        for (int j = 1; j < 6; j++)
+                                        {
+                                            ExcelBook.Worksheets[1].Cells[i, j].Value = wordTable.Cell(i, j).Range.Text.Substring(0, wordTable.Cell(i, j).Range.Text.Length - 1);
+                                            ExcelBook.Worksheets[1].Cells[i, j].EntireColumn.ColumnWidth = 20;
+                                        }
+                                }
+
                                 break;
 
                             case "checkBox1":
@@ -256,7 +276,7 @@ namespace DataAnalysisApp
 
                                 wordrange = WordDoc.Bookmarks["Анова"].Range;
                                 wordrange.InsertParagraphAfter();
-                                wordrange.InsertAfter("С помощью теста ANOVA были изучены различия по количеству прогулов для переменных: 'Работа матери', 'Опекун студента', 'Количество употребляемого алкгоголя в будние дни'.\r");
+                                wordrange.InsertAfter("С помощью теста ANOVA были изучены различия по количеству прогулов для переменных: 'Работа матери', 'Опекун студента', 'Количество употребляемого алкоголя в будние дни'.\r");
 
                                 wordrange.InsertAfter(" Работа матери (5 групп) : p value = " + Math.Round(engine.Evaluate("(summary(aov(absences ~ Mjob, data = data))[[1]][[5]])[1]").AsNumeric()[0], 5) + "; F value = " +
                                     Math.Round(engine.Evaluate("(summary(aov(absences ~ Mjob, data = data))[[1]][[4]])[1]").AsNumeric()[0], 5) + ". ");
@@ -403,6 +423,19 @@ namespace DataAnalysisApp
                                 wordTable1.Cell(2, 3).Range.Bold = 1;
                                 wordTable1.Cell(3, 2).Range.Bold = 1;
 
+                                if (checkBox6.IsChecked == true)
+                                {
+
+                                    ExcelBook.Worksheets[2].Name = "Correlation analysis";
+                                    for (int i = 1; i < 4; i++)
+                                        for (int j = 1; j < 4; j++)
+                                        {
+                                            ExcelBook.Worksheets[2].Cells[i, j].Value = wordTable1.Cell(i, j).Range.Text.Substring(0, wordTable1.Cell(i, j).Range.Text.Length - 1);
+                                            ExcelBook.Worksheets[2].Cells[i, j].EntireColumn.ColumnWidth = 20;
+                                            if (wordTable1.Cell(i, j).Range.Bold == 1) ExcelBook.Worksheets[2].Cells[i, j].Font.Bold = true;
+                                        }
+                                }
+
                                 wordrange = WordDoc.Bookmarks["Разрыв1"].Range;
                                 wordrange.InsertBreak(Word.WdBreakType.wdPageBreak);
 
@@ -447,6 +480,19 @@ namespace DataAnalysisApp
                                             wordTable2.Cell(i, 1).Range.Bold = 1;
                                         }
                                     }
+
+                                if (checkBox6.IsChecked == true)
+                                {
+
+                                    ExcelBook.Worksheets[3].Name = "Regression analysis";
+                                    for (int j = 1; j < 6; j++)
+                                        for (int i = 1; i < 14; i++)
+                                        {
+                                            ExcelBook.Worksheets[3].Cells[i, j].Value = wordTable2.Cell(i, j).Range.Text.Substring(0, wordTable2.Cell(i, j).Range.Text.Length - 1);
+                                            ExcelBook.Worksheets[3].Cells[i, j].EntireColumn.ColumnWidth = 20;
+                                            if (wordTable2.Cell(i, j).Range.Bold == 1) ExcelBook.Worksheets[3].Cells[i, j].Font.Bold = true;
+                                        }
+                                }
 
                                 break;
 
