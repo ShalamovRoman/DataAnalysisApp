@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataAnalysisApp"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="DataAnalysisApp" Height="350" Width="525" ShowInTaskbar="False">
     <Grid>
 
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="26,41,0,0" TextWrapping="Wrap" Text="Enter report name here" VerticalAlignment="Top" Width="181"/>
+        <xctk:WatermarkTextBox x:Name="watemark1" Watermark="Enter report name" HorizontalAlignment="Left" Height="23" Margin="27,41,0,0" VerticalAlignment="Top" Width="181" BorderBrush="Black"/>
         <Label x:Name="label" Content="Report name" HorizontalAlignment="Left" Margin="20,15,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label2" Content="Author name" HorizontalAlignment="Left" Margin="20,72,0,0" VerticalAlignment="Top" Width="97"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="26,103,0,0" TextWrapping="Wrap" Text="Enter author name here" VerticalAlignment="Top" Width="181"/>
         <DatePicker x:Name="dateTimePicker1" HorizontalAlignment="Left" Margin="26,162,0,0" VerticalAlignment="Top" Width="181" FirstDayOfWeek="Monday" SelectedDate="{x:Static sys:DateTime.Now}"/>
         <Label x:Name="label1" Content="Date" HorizontalAlignment="Left" Margin="20,131,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label3" Content="Choose analysis type:" HorizontalAlignment="Left" Margin="298,15,0,0" VerticalAlignment="Top"/>
@@ -23,7 +23,10 @@
         <CheckBox x:Name="checkBox4" Content="Chi-Squared Test" HorizontalAlignment="Left" Margin="302,166,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox5" Content="Сorrelation analysis" HorizontalAlignment="Left" Margin="302,196,0,0" VerticalAlignment="Top"/>
         <Button x:Name="button" Content="Create report" HorizontalAlignment="Left" Margin="200,259,0,0" VerticalAlignment="Top" Width="127" Height="38" Click="button_Click"/>
-        <CheckBox x:Name="checkBox6" Content="Create Excel tables" HorizontalAlignment="Left" Margin="26,221,0,0" VerticalAlignment="Top"  ToolTip="Only for Correlation and Regression analyzes"/>
+        <CheckBox x:Name="checkBox6" Content="Create Excel tables" HorizontalAlignment="Left" Margin="26,199,0,0" VerticalAlignment="Top"  ToolTip="Only for Descriptive statistics, Correlation and Regression analyzes"/>
+        <CheckBox x:Name="checkBox7" Content="Regression Analysis" HorizontalAlignment="Left" Margin="302,226,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox8" Content="Create empty report" HorizontalAlignment="Left" Margin="27,229,0,0" VerticalAlignment="Top"/>
+        <xctk:WatermarkTextBox x:Name="watemark1_Copy" Watermark="Enter author name" HorizontalAlignment="Left" Height="23" Margin="27,104,0,0" VerticalAlignment="Top" Width="181" BorderBrush="Black"/>
 
     </Grid>
 </Window>
