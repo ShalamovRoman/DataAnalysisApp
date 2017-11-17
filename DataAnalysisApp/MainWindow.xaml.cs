@@ -230,6 +230,7 @@ namespace DataAnalysisApp
                                     for (int i = 1; i < 5; i++)
                                         for (int j = 1; j < 6; j++)
                                         {
+                                            (ExcelBook.Worksheets[1].Cells(i, j) as Excel.Range).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                                             ExcelBook.Worksheets[1].Cells[i, j].Value = wordTable.Cell(i, j).Range.Text.Substring(0, wordTable.Cell(i, j).Range.Text.Length - 1);
                                             ExcelBook.Worksheets[1].Cells[i, j].EntireColumn.ColumnWidth = 20;
                                         }
@@ -430,9 +431,10 @@ namespace DataAnalysisApp
                                     for (int i = 1; i < 4; i++)
                                         for (int j = 1; j < 4; j++)
                                         {
+                                            if (wordTable1.Cell(i, j).Range.Bold == -1) (ExcelBook.Worksheets[2].Cells(i, j) as Excel.Range).Font.Bold = true;
+                                            (ExcelBook.Worksheets[2].Cells(i, j) as Excel.Range).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                                             ExcelBook.Worksheets[2].Cells[i, j].Value = wordTable1.Cell(i, j).Range.Text.Substring(0, wordTable1.Cell(i, j).Range.Text.Length - 1);
                                             ExcelBook.Worksheets[2].Cells[i, j].EntireColumn.ColumnWidth = 20;
-                                            if (wordTable1.Cell(i, j).Range.Bold == 1) ExcelBook.Worksheets[2].Cells[i, j].Font.Bold = true;
                                         }
                                 }
 
@@ -488,9 +490,11 @@ namespace DataAnalysisApp
                                     for (int j = 1; j < 6; j++)
                                         for (int i = 1; i < 14; i++)
                                         {
+                                            if (wordTable2.Cell(i, j).Range.Bold == -1) (ExcelBook.Worksheets[3].Cells(i, j) as Excel.Range).Font.Bold = true;
+                                            (ExcelBook.Worksheets[3].Cells(i, j) as Excel.Range).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                                             ExcelBook.Worksheets[3].Cells[i, j].Value = wordTable2.Cell(i, j).Range.Text.Substring(0, wordTable2.Cell(i, j).Range.Text.Length - 1);
                                             ExcelBook.Worksheets[3].Cells[i, j].EntireColumn.ColumnWidth = 20;
-                                            if (wordTable2.Cell(i, j).Range.Bold == 1) ExcelBook.Worksheets[3].Cells[i, j].Font.Bold = true;
+                                            
                                         }
                                 }
 
